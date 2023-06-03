@@ -244,7 +244,7 @@ function App() {
   const [country, setCountry] = useState(Object.keys(myCountryCodesObject)[Math.floor(Math.random() * Object.keys(myCountryCodesObject).length)]);
   // const [countryName, setCountryName] = useState(Object.keys(country)[0].toLowerCase());
   // console.log(countryName);
-
+  //changes
 
   return (
     <>
