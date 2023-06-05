@@ -37,6 +37,16 @@
   padding: 2em;
 }
 
+.column {
+  flex: 1;
+  margin: 40px;
+}
+
+.overall {
+  display: flex;
+}
+
 .read-the-docs {
   color: #888;
 }
+
