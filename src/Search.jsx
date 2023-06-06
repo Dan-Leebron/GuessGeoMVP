@@ -2,8 +2,11 @@ import './App.css'
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
+import { useState } from 'react'
 
-function Search( { allCountries, selectedCountry } ) {
+function Search( { allCountries, selectedCountry, guesses, setGuesses, setCountryFound, gaveUp, setGaveUp } ) {
+
+
 
 
   let countries = allCountries.map((country) => {
@@ -16,7 +19,16 @@ function Search( { allCountries, selectedCountry } ) {
   function handleSubmit (event) {
     event.preventDefault();
 
+    var guessedCountry = allCountries.filter(obj => {
+      return obj['name'] === event.target[0].value;
+    })
+
+    let allGuesses = [...guesses, ...guessedCountry];
+    setGuesses(allGuesses);
+    console.log('updated guesses', guesses);
+
     if (selectedCountry["name"] === event.target[0].value) {
+      setCountryFound(true);
       console.log('Hoory, the country was ', selectedCountry);
     } else {
       console.log('Sorry, the country was not ', event.target[0].value);
@@ -26,6 +38,7 @@ function Search( { allCountries, selectedCountry } ) {
   }
 
   return (
+    <>
     <form onSubmit={handleSubmit}>
     <Autocomplete
       sx={{ width: 600,
@@ -50,10 +63,19 @@ function Search( { allCountries, selectedCountry } ) {
       )}
     />
     <br></br>
-    <button type="submit">
-      Submit!
-    </button>
+    <div className="overall">
+      <button className="column" type="submit">
+        Submit!
+      </button>
+      <button className="column" type="button" onClick={() => {
+        setGaveUp(true);
+      }}>
+        Give Up?
+      </button>
+    </div>
   </form>
+  {gaveUp ? (<h1>This was a tough one! The country was {selectedCountry["name"]}</h1>) : (<></>)}
+  </>
   );
 
 
